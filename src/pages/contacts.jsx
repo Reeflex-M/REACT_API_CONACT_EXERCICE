@@ -15,7 +15,7 @@ export const Contacts = () => {
                             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border-4 border-red-500">
                                 <div className="w-6 h-6 bg-red-500 rounded-full"></div>
                             </div>
-                            <span className="text-gray-700 font-semibold">Dresseur #{user}</span>
+                            <span className="text-gray-700 font-semibold">NUM USER{user}</span>
                         </li>
                     ))}
                 </ul>
