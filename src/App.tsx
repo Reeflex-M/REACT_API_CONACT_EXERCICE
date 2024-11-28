@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Routes, Route } from 'react-router-dom'
 import './App.css'
 import { Navbar } from './component/navbar'
 import './index.css'
+import { Contacts } from './pages/contacts';
+import { Contact } from './pages/contact';
 
 function App() {
   return (
@@ -32,6 +34,10 @@ function App() {
           </div>
         </div>
       </main>
+      <Routes>
+        <Route path="/" element={<Contacts />} />
+        <Route path="/contact/:id" element={<Contact />} />
+      </Routes>
       <Outlet />
     </div>
   )

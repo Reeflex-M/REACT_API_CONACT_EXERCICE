@@ -5,7 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Error } from './component/error.tsx'
 import { About } from './pages/about.tsx'
 import { Meccool } from './pages/meccool.tsx'
-import { Contacts } from './pages/contacts.jsx'
+import { Contacts } from './pages/contacts.tsx'
+import { Contact } from './pages/contact.tsx'
 
 const router = createBrowserRouter([
   {
@@ -19,14 +20,20 @@ const router = createBrowserRouter([
       },
       {
         path: '/meccool',
-        element: <Meccool/>,
+        element: <Meccool />,
       },
       {
         path: '/contact',
-        element: <Contacts/>,
-      }
+        element: <Contacts />,
+        children: [
+          {
+            path: '/contact/:id',
+            element: <Contact />,
+          }
+        ]
+      },
     ]
-  },
+  }
 ])
 
 createRoot(document.getElementById('root')!).render(
