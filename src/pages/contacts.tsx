@@ -35,7 +35,7 @@ export const Contacts = () => {
                     <li key={user.id}>
                         <Link
                             to={`/contact/${user.id}`}
-                            className="flex items-center p-3 border rounded hover:bg-gray-50"
+                            className="block flex items-center p-3 border rounded hover:bg-gray-100 transition duration-200"
                         >
                             <img
                                 src={user.profile_picture}

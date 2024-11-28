@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -25,21 +24,14 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         element: <Contacts />,
-        children: [
-          {
-            path: '/contact/:id',
-            element: <Contact />,
-          }
-        ]
       },
+      {
+        path: '/contact/:id',
+        element: <Contact />,
+      }
     ]
   }
 ])
 
-createRoot(document.getElementById('root')!).render(
-  <>
-    <StrictMode>
-      <RouterProvider router={router} />
-    </StrictMode>
-  </>
-)
+const root = createRoot(document.getElementById('root')!)
+root.render(<RouterProvider router={router} />)

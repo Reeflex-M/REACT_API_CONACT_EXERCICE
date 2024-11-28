@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 interface User {
@@ -17,28 +17,41 @@ interface User {
 
 export const Contact = () => {
   const { id } = useParams();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [userData, setUserData] = useState<{
+    user: User | null;
+    loading: boolean;
+    error: string | null;
+  }>({
+    user: null,
+    loading: true,
+    error: null
+  });
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://api.slingacademy.com/v1/sample-data/users/${id}`)
-      .then(response => {
-        if (!response.ok) throw new Error('Erreur réseau');
-        return response.json();
-      })
-      .then(data => setUser(data.user))
-      .catch(error => setError(error.message))
-      .finally(() => setLoading(false));
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://api.slingacademy.com/v1/sample-data/users/${id}`);
+        const data = await response.json();
+        setUserData({ user: data.user, loading: false, error: null });
+      } catch {
+        setUserData({ user: null, loading: false, error: 'Erreur de chargement' });
+      }
+    };
+
+    fetchData();
   }, [id]);
 
-  if (loading) return <div className="text-center p-4">Chargement...</div>;
-  if (error) return <div className="text-center text-red-500 p-4">{error}</div>;
-  if (!user) return <div className="text-center p-4">Contact non trouvé</div>;
+  if (userData.loading) return <div className="text-center p-4">Chargement...</div>;
+  if (userData.error) return <div className="text-center text-red-500 p-4">{userData.error}</div>;
+  if (!userData.user) return <div className="text-center p-4">Contact non trouvé</div>;
+
+  const user = userData.user;
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-6">
+    <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-6 mt-4">
+      <Link to="/contact" className="text-blue-500 hover:text-blue-700 mb-4 block">
+        ← Retour à la liste
+      </Link>
       <div className="text-center mb-6">
         <img
           src={user.profile_picture}
