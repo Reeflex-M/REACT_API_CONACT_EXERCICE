@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Outlet, Routes, Route } from 'react-router-dom'
 import './App.css'
 import { Navbar } from './component/navbar'
